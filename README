@@ -1,0 +1,11 @@
+References:
+
+https://fastapi.tiangolo.com/tutorial/sql-databases/
+https://fastapi.tiangolo.com/ru/advanced/graphql/
+https://strawberry.rocks/docs
+https://fastapi.tiangolo.com/tutorial/bigger-applications/
+https://www.apollographql.com/blog/graphql/python/complete-api-guide/
+
+alembic upgrade head
+
+strawberry server main
