@@ -133,6 +133,35 @@ For more queries go to: `queries_to_test.txt`
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+
+<!-- Automated Tests -->
+## Tests
+There is also a container in which the test are executed, but if you want to test it by yourself
+follow the next steps.
+
+
+* Create virtual environment on the root directory
+  ```sh
+  python3 -m venv ./venv
+  ```
+* Activate enviroment
+  ```sh
+  source venv/bin/activate
+  ```
+  
+* Install requirements
+  ```sh
+  pip install -r requirements.txt 
+  ```
+
+* Init tests
+  ```sh
+  python -m pytest ./tests/
+  ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
 <!-- LICENSE -->
 ## License
 

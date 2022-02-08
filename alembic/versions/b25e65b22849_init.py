@@ -7,6 +7,8 @@ Create Date: 2022-02-07 16:12:06.739202
 """
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy import orm
+
 from integration.fake_data_api import FakeData
 
 # revision identifiers, used by Alembic.
@@ -18,7 +20,8 @@ depends_on = None
 
 def upgrade():
     api = FakeData()
-
+    bind = op.get_bind()
+    session = orm.Session(bind=bind)
     post_table = op.create_table(
         "posts",
         sa.Column('id', sa.Integer, primary_key=True),
@@ -47,6 +50,7 @@ def upgrade():
                      "body": p["body"]
             } for p in posts)
         )
+        session.execute("SELECT setval(pg_get_serial_sequence('posts', 'id'), max(id)) FROM posts;")
     except Exception as e:
         print(str(e))
 
