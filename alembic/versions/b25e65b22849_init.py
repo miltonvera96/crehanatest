@@ -7,7 +7,7 @@ Create Date: 2022-02-07 16:12:06.739202
 """
 from alembic import op
 import sqlalchemy as sa
-
+from integration.fake_data_api import FakeData
 
 # revision identifiers, used by Alembic.
 revision = 'b25e65b22849'
@@ -17,7 +17,9 @@ depends_on = None
 
 
 def upgrade():
-    op.create_table(
+    api = FakeData()
+
+    post_table = op.create_table(
         "posts",
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('user_id', sa.String, primary_key=False),
@@ -33,6 +35,20 @@ def upgrade():
         sa.Column('email', sa.String, primary_key=False),
         sa.Column('body', sa.String, primary_key=False)
     )
+
+    try:
+        posts = api.get_posts()
+        op.bulk_insert(
+            post_table,
+            list({
+                     "id": p["id"],
+                     "user_id": p["userId"],
+                     "title": p["title"],
+                     "body": p["body"]
+            } for p in posts)
+        )
+    except Exception as e:
+        print(str(e))
 
 
 def downgrade():
