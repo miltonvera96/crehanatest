@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   postgres:
-    image: postgis/postgis:10-2.5-alpine
+    image: postgres:13.0-alpine
     environment:
       - POSTGRES_DB=crehana
       - POSTGRES_USER=postgres
@@ -19,7 +19,7 @@ services:
     volumes:
       - .:/code
     container_name: Crehanatest
-    command: strawberry server main
+    command: bash -c "alembic upgrade head && strawberry server main"
     depends_on:
       - postgres
     env_file:

@@ -6,5 +6,5 @@ while ! nc -z $DB_HOST $DB_PORT; do
 done
 
 echo "postgres database has initialized successfully"
-exec alembic upgrade head
 
+exec "$@"
